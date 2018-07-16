@@ -8,9 +8,18 @@ $(function () {
         "bLengthChange": false,
         "bFilter": true,
           dom: 'Bfrtip',
-          buttons: [
-            'excel', 'pdf', 'print'
-        ]
+             buttons: [{
+              extend: 'pdf',
+              title: 'History Harian Bank',
+              filename: 'history_pdf'
+            }, {
+                extend: 'print',
+                title: 'History Harian Bank',
+              }, {
+              extend: 'excel',
+              title: 'History Harian Bank',
+              filename: 'history_excel'
+            }]
     });
 
     //Exportable table
