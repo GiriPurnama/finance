@@ -1,6 +1,16 @@
 $(function () {
     $('.js-basic-example').DataTable({
-        responsive: true
+        "bLengthChange": false,
+        "bFilter": true
+    });
+
+    $('#history').DataTable({
+        "bLengthChange": false,
+        "bFilter": true,
+          dom: 'Bfrtip',
+          buttons: [
+            'excel', 'pdf', 'print'
+        ]
     });
 
     //Exportable table

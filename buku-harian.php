@@ -2,7 +2,9 @@
 <html>
 
 <?PHP 
-	include 'library-header.php';
+	include 'include/library-header.php';
+    include 'include/func-rupiah.php';
+    include 'include/func-indotgl.php';    
 ?>
 
 <body class="theme-red">
@@ -43,7 +45,7 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="index.html">PT Harda Esa Raksa</a>
+                <a class="navbar-brand" href="index.php">PT Harda Esa Raksa</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -53,66 +55,9 @@
         </div>
     </nav>
     <!-- #Top Bar -->
-    <section>
-        <!-- Left Sidebar -->
-        <aside id="leftsidebar" class="sidebar">
-            <!-- User Info -->
-            <div class="user-info">
-                <div class="image">
-                    <img src="images/user.png" width="48" height="48" alt="User" />
-                </div>
-                <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe</div>
-                    <div class="email">john.doe@example.com</div>
-                    <div class="btn-group user-helper-dropdown">
-                        <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
-                        <ul class="dropdown-menu pull-right">
-                            <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">group</i>Followers</a></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- #User Info -->
-            <!-- Menu -->
-            <div class="menu">
-                <ul class="list">
-                    <li class="header">MAIN NAVIGATION</li>
-                    <li class="active">
-                        <a href="index.html">
-                            <i class="material-icons">home</i>
-                            <span>Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="index.html">
-                            <i class="material-icons">inbox</i>
-                            <span>Buku Harian Bank</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <!-- #Menu -->
-            <!-- Footer -->
-            <div class="legal">
-                <div class="copyright">
-                    &copy; 2016 - 2017 <a href="javascript:void(0);">PT Harda Esa Raksa</a>.
-                </div>
-                <div class="version">
-                    <b>Version: </b> 1.0.5
-                </div>
-            </div>
-            <!-- #Footer -->
-        </aside>
-        <!-- #END# Left Sidebar -->
-        <!-- Right Sidebar -->
-        <!-- #END# Right Sidebar -->
-    </section>
+    <?php 
+        include "include/library-sidebar.php";
+    ?>
 
     <section class="content">
         <div class="container-fluid">
@@ -120,56 +65,98 @@
                 <h2>Buku Harian Bank</h2>
             </div>
 
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="body">
-                            <form id="form_validation" method="POST">
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required>
-                                        <label class="form-label">Name</label>
-                                    </div>
-                                </div>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="surname" required>
-                                        <label class="form-label">Surname</label>
-                                    </div>
-                                </div>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="email" class="form-control" name="email" required>
-                                        <label class="form-label">Email</label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="radio" name="gender" id="male" class="with-gap">
-                                    <label for="male">Male</label>
+            <div class="card pad20">
+                <h3>Data Bank</h3>
+                <div class="table-responsive">
+                    <button type="button" class="btn btn-primary waves-effect m-r-20 mgbt20" data-toggle="modal" data-target="#largeModal">Tambah Data</button>
+                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                        <thead>
+                            <tr>
+                                <th>Nama Bank</th>
+                                <th>Pemasukan</th>
+                                <th>Pengeluaran</th>
+                                <th>Tanggal</th>
+                                <th>Total</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?PHP 
+                            $buku_harian = mysqli_query($db, "SELECT * FROM tbl_buku order by idbuku desc");
+                            while ($row = mysqli_fetch_array($buku_harian)){ 
+                                $nama_bank = $row['nama_bank'];
+                                $pemasukan = $row['pemasukan'];
+                                $pengeluaran = $row['pengeluaran'];
+                                $tanggal = $row['tgl_buku'];
+                                $total = $row['total'];
+                                $idbuku = $row['idbuku'];
+                                $out_null = $pengeluaran ?: "-";
+                                $in_null = $pemasukan ?: "-";
+                                $timestamp = strtotime($tanggal);
+                                $date_post = tgl_indo(date('Y-m-d', $timestamp));   
+                            ?>
+                            <tr>
+                                <td><?= $nama_bank; ?></td>
+                                <td><?= rupiah($pemasukan); ?></td>
+                                <td><?= rupiah($pengeluaran); ?></td>
+                                <td><?= $date_post; ?></td>
+                                <td><?= rupiah($total); ?></td>
+                                <td>
+                                    <a href="#modalHarianBank" id="idharian" data-toggle='modal' data-id="<?= $idbuku; ?>"><i class="fa fa-cogs"></i></a>
+                                    <a href="javascript:void(0);"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <?PHP } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-                                    <input type="radio" name="gender" id="female" class="with-gap">
-                                    <label for="female" class="m-l-20">Female</label>
-                                </div>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <textarea name="description" cols="30" rows="5" class="form-control no-resize" required></textarea>
-                                        <label class="form-label">Description</label>
-                                    </div>
-                                </div>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="password" class="form-control" name="password" required>
-                                        <label class="form-label">Password</label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="checkbox" id="checkbox" name="checkbox">
-                                    <label for="checkbox">I have read and accept the terms</label>
-                                </div>
-                                <button class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
-                            </form>
-                        </div>
-                    </div>
+              <div class="card pad20">
+              <h3>History</h3>
+                <div class="table-responsive">
+                    <table id="history" class="table table-bordered table-striped table-hover dataTable">
+                        <thead>
+                            <tr>
+                                <th>Nama Bank</th>
+                                <th>Pemasukan</th>
+                                <th>Pengeluaran</th>
+                                <th>Info</th>
+                                <th>Tanggal</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?PHP 
+                            $buku_harian = mysqli_query($db, "SELECT * FROM tbl_history order by idhistory desc");
+                            while ($row = mysqli_fetch_array($buku_harian)){ 
+                                $nama_bank = $row['nama_bank'];
+                                $pemasukan = $row['pemasukan'];
+                                $pengeluaran = $row['pengeluaran'];
+                                $info_buku = $row['info_buku'];
+
+                                $tanggal = $row['tgl_buku'];
+                                $timestamp = strtotime($tanggal);
+                                $date_post = tgl_indo(date('Y-m-d', $timestamp));   
+
+                                $total = $row['total'];
+                                $idbuku = $row['idbuku'];
+                                $out_null = $pengeluaran ? rupiah($pengeluaran) : "0";
+                                $in_null = $pemasukan ? rupiah($pemasukan) : "0";
+
+                            ?>
+
+                            <tr>
+                                <td><?= $nama_bank; ?></td>
+                                <td><?= rupiah($pemasukan); ?></td>
+                                <td><?= rupiah($pengeluaran); ?></td>
+                                <td><?= $info_buku; ?></td>
+                                <td><?= $date_post; ?></td>
+                                <td><?= rupiah($total); ?></td>
+                            </tr>
+                            <?PHP } ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -178,9 +165,28 @@
     </section>
 
     <?PHP
-    	include "library-footer.php";
+        include "modal.php";
+    	include "include/library-footer.php";
      ?>
 
 </body>
 
 </html>
+
+<script type="text/javascript">
+    $('#modalHarianBank').on('show.bs.modal', function (e) {
+      var rowharian = $(e.relatedTarget).data('id');
+      //menggunakan fungsi ajax untuk pengambilan data
+      $.ajax({
+          type : 'post',
+          url : 'update-form.php',
+          data :  'rowharian='+ rowharian,
+          success : function(data){
+          $('.fetched-data').html(data);//menampilkan data ke dalam modal
+          }
+      });
+    });
+
+
+   
+</script>
