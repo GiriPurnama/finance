@@ -103,7 +103,7 @@
                                 <td><?= rupiah($total); ?></td>
                                 <td>
                                     <a href="#modalHarianBank" id="idharian" data-toggle='modal' data-id="<?= $idbuku; ?>"><i class="fa fa-cogs"></i></a>
-                                    <a href="javascript:void(0);"><i class="fa fa-trash"></i></a>
+                                    <a href='server.php?idbuku=<?= $idbuku; ?>' onclick="return confirm('Apakah yakin album ini akan dihapus?')"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                             <?PHP } ?>

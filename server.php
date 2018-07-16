@@ -16,25 +16,17 @@
   	}
 
   	// Delete
-  	if (isset($_GET['idhome'])) {
-	  	$idhome = $_GET['idhome'];
-	  	$load_data = mysqli_query($db, "SELECT * FROM menu_home WHERE idhome='$idhome'");
-	  	while ($row = mysqli_fetch_assoc($load_data)) {
-	  		$test = $row['title_img'];
-	  		if (is_file($row['image_home'])) {
-	  			unlink($row['image_home']);
-			  	$query_delete = mysqli_query($db, "DELETE FROM menu_home WHERE idhome='$idhome'");
-			  	if ($query_delete) {
-			  		header('location: page-home.php');
-			  	} else{
-			  		 echo ("<script LANGUAGE='JavaScript'>window.alert('Data Gagal Dihapus'); window.location.href='page-home.php'</script>");
-			  	}
-	  		} else { 
-	  			 echo ("<script LANGUAGE='JavaScript'>window.alert('File tidak ditemukan'); window.location.href='page-home.php'</script>");
-	  			 $query_delete = mysqli_query($db, "DELETE FROM menu_home WHERE idhome='$idhome'");
-	  		}
+  	if (isset($_GET['idbuku'])) {
+	  	$idbuku = $_GET['idbuku'];
+	  	$query_delete_history = mysqli_query($db, "DELETE FROM tbl_history WHERE idbuku='$idbuku'");
+	  	$query_delete = mysqli_query($db, "DELETE FROM tbl_buku WHERE idbuku='$idbuku'");
+	  	if ($query_delete && $query_delete_history) {
+	  		header('location: buku-harian.php');
+	  	} else{
+	  		 echo ("<script LANGUAGE='JavaScript'>window.alert('Data Gagal Dihapus'); window.location.href='buku-harian.php'</script>");
 	  	}
-  	}
+	 }
+
 
   	// Update
   	if (isset($_POST['update_bank_plus'])) {
