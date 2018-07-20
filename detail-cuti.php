@@ -23,6 +23,12 @@
             $alasan_cuti = $row['alasan_cuti'];
             $tempat_lahir = $row['tempat_lahir'];
             $no_telepon = $row['no_telepon'];
+
+            $timestamp_lahir = strtotime($tgl_lahir);
+            $date_birth = tgl_indo(date('Y-m-d', $timestamp_lahir));
+
+            $timestamp_join = strtotime($tgl_join);
+            $date_join = tgl_indo(date('Y-m-d', $timestamp_join)); 
 ?>
 
 
@@ -105,7 +111,7 @@
 
                     <div class="col-md-6">
                         <span class="title">Tanggal Lahir</span>
-                        <label class="sub-title"><?= $tgl_lahir; ?></label>
+                        <label class="sub-title"><?= $date_birth; ?></label>
                     </div>
 
                     <div class="col-md-6">
@@ -140,7 +146,7 @@
 
                     <div class="col-md-6">
                         <span class="title">Tanggal Join</span>
-                        <label class="sub-title"><?= $tgl_join; ?></label>
+                        <label class="sub-title"><?= $date_join; ?></label>
                     </div>
 
                     <div class="col-md-6">
@@ -161,6 +167,7 @@
                         <div class="form-line">
                             <input type="hidden" name="idpegawai" value="<?= $idpegawai; ?>">
                             <input type="hidden" name="jumlah_cuti" value="<?= $jumlah_cuti; ?>">
+                            <input type="hidden" name="nama_pegawai" value="<?= $nama_pegawai; ?>">
 
                             <input type="text" class="form-control date" id="awalCuti"  name="tgl_awal_cuti" required>
                             <label class="form-label">Awal Cuti <b>(YYYY-MM-DD)</b></label>
@@ -182,6 +189,7 @@
                     </div>
 
                     <button class="btn btn-primary waves-effect" name="update_cuti" type="submit">SIMPAN</button>
+                    <a href='tracking-cuti.php?idpegawai=<?= $idpegawai; ?>' class="btn bg-amber waves-effect">Tracking Cuti</a>
                                   
                 </form>
             </div>
@@ -200,7 +208,7 @@
 
 <script type="text/javascript">
 
-    $("#akhirCuti").change(function() {
+    $("#akhirCuti, #awalCuti").change(function() {
         var datacuti = $('#form_validation_pegawai').serialize();
         $.ajax({
           type : 'post',

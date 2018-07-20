@@ -5,6 +5,11 @@
 	include 'include/library-header.php';
     include 'include/func-rupiah.php';
     include 'include/func-indotgl.php';    
+
+    if (isset($_GET['idpegawai'])) {
+         $idpegawai   = $_GET['idpegawai'];
+    }
+
 ?>
 
 <body class="theme-red">
@@ -68,42 +73,46 @@
 
             <div class="card pad20">
              <div class="table-responsive">
-                <button type="button" class="btn btn-primary waves-effect m-r-20 mgbt20" data-toggle="modal" data-target="#pegawaiModal">Tambah Data Pegawai</button>
                     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                         <thead>
                             <tr>
+                                <th>No</th>
                                 <th>Nama Pegawai</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Agama</th>
-                                <th>Jumlah Cuti</th>
+                                <th>Ijin Cuti</th>
                                 <th>Alasan Cuti</th>
-                                <th>Aksi</th>
+                                <th>Sisa Cuti</th>
+                                <th>Awal Cuti</th>
+                                <th>Akhir Cuti</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?PHP 
-                            $buku_harian = mysqli_query($db, "SELECT * FROM tbl_pegawai order by idpegawai desc");
+                            <?PHP
+                            $no = 1; 
+                            $buku_harian = mysqli_query($db, "SELECT * FROM history_cuti where idpegawai = '$idpegawai' order by idcuti desc");
                             while ($row = mysqli_fetch_array($buku_harian)){
                                 $idpegawai = $row['idpegawai']; 
                                 $nama_pegawai = $row['nama_pegawai'];
-                                $jenis_kelamin = $row['jenis_kelamin'];
-                                $agama = $row['agama'];
-                                $jumlah_cuti = $row['jumlah_cuti'];
+                                $ijin_cuti = $row['jumlah_cuti'];
                                 $alasan_cuti = $row['alasan_cuti'];
-                       
+                                $sisa_cuti = $row['sisa_cuti'];
+                                $awal_cuti = $row['awal_cuti'];
+                                $akhir_cuti= $row['akhir_cuti'];
+
+                                $awal_cuti = strtotime($awal_cuti);
+                                $awal_cuti = tgl_indo(date('Y-m-d', $awal_cuti));
+                                $akhir_cuti = strtotime($akhir_cuti);
+                                $akhir_cuti = tgl_indo(date('Y-m-d', $akhir_cuti));
                             ?>
                             <tr>
+                                <td><?= $no; ?></td>
                                 <td><?= $nama_pegawai; ?></td>
-                                <td><?= $jenis_kelamin; ?></td>
-                                <td><?= $agama; ?></td>
-                                <td><?= $jumlah_cuti; ?></td>
+                                <td><?= $ijin_cuti; ?></td>
                                 <td><?= $alasan_cuti; ?></td>
-                                <td>
-                                    <?php echo "<a href='detail-cuti.php?idpegawai=$row[idpegawai]' class='btn bg-cyan btn-circle waves-effect waves-circle waves-float'><i class='material-icons'>settings</i></a>" ?>
-                                    <a href='server.php?idpegawai=<?= $idpegawai; ?>' class="btn bg-red btn-circle waves-effect waves-circle waves-float" onclick="return confirm('Apakah yakin data ini akan dihapus?')"><i class='material-icons'>delete_forever</i></a>
-                                </td>
+                                <td><?= $sisa_cuti; ?></td>
+                                <td><?= $awal_cuti; ?></td>
+                                <td><?= $akhir_cuti; ?></td>
                             </tr>
-                            <?PHP } ?>
+                            <?PHP $no++; } ?>
                         </tbody>
                     </table>
              </div>

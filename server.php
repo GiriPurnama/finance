@@ -105,17 +105,21 @@
 //===================== Page Cuti ================================================
 
 
+//===================== Page Add Cuti ================================================
+
 if (isset($_POST['update_cuti'])) {
 	  if (isset($_POST['idpegawai'])) {
-
-	  	// setlocale(LC_TIME, 'id_ID.UTF8');
 		
 	    $idpegawai = $_POST['idpegawai'];
+	    $nama_pegawai = $_POST['nama_pegawai'];
 	   	$alasan_cuti = $_POST['alasan_cuti'];
 	   	$jumlah_cuti = $_POST['jumlah_cuti'];
 
 	    $awal_cuti  = $_POST['tgl_awal_cuti'];
 	    $akhir_cuti = $_POST['tgl_akhir_cuti'];
+
+	    $awal_cuti_post  = $_POST['tgl_awal_cuti'];
+	    $akhir_cuti_post = $_POST['tgl_akhir_cuti'];
 
 	
 	    $awal_cuti = strtotime($awal_cuti);	
@@ -138,12 +142,14 @@ if (isset($_POST['update_cuti'])) {
 
 		$hitung_cuti = $jumlah_cuti - $total_cuti;
 
+		$query_history_cuti = mysqli_query($db, "INSERT INTO history_cuti(idpegawai, nama_pegawai, jumlah_cuti, sisa_cuti, alasan_cuti, awal_cuti, akhir_cuti) values ('$idpegawai','$nama_pegawai','$total_cuti','$hitung_cuti','$alasan_cuti','$awal_cuti_post','$akhir_cuti_post')");
+
 		$query = mysqli_query($db, "UPDATE tbl_pegawai SET jumlah_cuti = '$hitung_cuti',
 	    						alasan_cuti = '$alasan_cuti'
 	                            WHERE idpegawai   = '$idpegawai'"); 
 
 
-		if ($query) {
+		if ($query && $query_history_cuti) {
 	      // jika berhasil tampilkan pesan berhasil update data
 	      header('location: detail-cuti.php?idpegawai='.$idpegawai.'');
 
@@ -154,4 +160,7 @@ if (isset($_POST['update_cuti'])) {
 
 	}
 }
+//===================== Page Add Cuti ================================================
+
+
 ?>
