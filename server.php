@@ -1,6 +1,6 @@
 <?php
  include "config/koneksi.php"; 
-//===================== Page Home ================================================
+//===================== Page Harian Buku ================================================
   	// Insert
   	if (isset($_POST['savedata'])) {
 		  $pemasukan = mysqli_real_escape_string($db, trim($_POST['pemasukan']));
@@ -61,6 +61,97 @@
 		
 	  }
 	} 
-//===================== Page Home ================================================
+//===================== Page Harian Buku ================================================
 
+
+//===================== Page Cuti ================================================
+
+	// Insert
+  	if (isset($_POST['save_pegawai'])) {
+		  $nama_pegawai = mysqli_real_escape_string($db, trim($_POST['nama_pegawai']));
+		  $agama = mysqli_real_escape_string($db, trim($_POST['agama']));
+		  $gender = $_POST['jenis_kelamin'];
+		  $tgl_lahir = mysqli_real_escape_string($db, trim($_POST['tgl_lahir']));
+		  $alamat = mysqli_real_escape_string($db, trim($_POST['alamat']));
+		  $email = mysqli_real_escape_string($db, trim($_POST['email']));
+		  $no_telepon = mysqli_real_escape_string($db, trim($_POST['no_telepon']));
+		  $nama_perusahaan = $_POST['nama_perusahaan'];
+		  $tgl_join = mysqli_real_escape_string($db, trim($_POST['tgl_join']));
+		  $jumlah_cuti = mysqli_real_escape_string($db, trim($_POST['jumlah_cuti']));
+		  $alasan_cuti = mysqli_real_escape_string($db, trim($_POST['alasan_cuti']));
+		  $tempat_lahir = mysqli_real_escape_string($db, trim($_POST['tempat_lahir']));
+
+		  
+		  $query = mysqli_query($db, "INSERT INTO tbl_pegawai(nama_pegawai, agama, jenis_kelamin, tempat_lahir, tgl_lahir, alamat, email, no_telepon, nama_perusahaan, tgl_join, jumlah_cuti, alasan_cuti) values ('$nama_pegawai','$agama','$gender','$tempat_lahir','$tgl_lahir','$alamat','$email','$no_telepon','$nama_perusahaan','$tgl_join','$jumlah_cuti','$alasan_cuti')");
+		  if ($query) {
+		  		header('location: cuti.php');
+		  } else {
+		  		echo ("<script LANGUAGE='JavaScript'>window.alert('Data Gagal Diinsert'); window.location.href='cuti.php'</script>");
+		  }
+  	}
+
+
+  	// Delete
+  	if (isset($_GET['idpegawai'])) {
+	  	$idpegawai = $_GET['idpegawai'];
+	  	$query_delete = mysqli_query($db, "DELETE FROM tbl_pegawai WHERE idpegawai='$idpegawai'");
+	  	if ($query_delete) {
+	  		header('location: cuti.php');
+	  	} else{
+	  		 echo ("<script LANGUAGE='JavaScript'>window.alert('Data Gagal Dihapus'); window.location.href='cuti.php'</script>");
+	  	}
+	 }
+
+//===================== Page Cuti ================================================
+
+
+if (isset($_POST['update_cuti'])) {
+	  if (isset($_POST['idpegawai'])) {
+
+	  	// setlocale(LC_TIME, 'id_ID.UTF8');
+		
+	    $idpegawai = $_POST['idpegawai'];
+	   	$alasan_cuti = $_POST['alasan_cuti'];
+	   	$jumlah_cuti = $_POST['jumlah_cuti'];
+
+	    $awal_cuti  = $_POST['tgl_awal_cuti'];
+	    $akhir_cuti = $_POST['tgl_akhir_cuti'];
+
+	
+	    $awal_cuti = strtotime($awal_cuti);	
+		$akhir_cuti = strtotime($akhir_cuti);
+		 
+		$haricuti = array();
+		$sabtuminggu = array();
+		 
+		for ($i=$awal_cuti; $i <= $akhir_cuti; $i += (60 * 60 * 24)) {
+		    if (date('w', $i) !== '0' && date('w', $i) !== '6') {
+		        $haricuti[] = $i;
+		    } else {
+		        $sabtuminggu[] = $i;
+		    }
+		 
+		}
+
+		$total_cuti = count($haricuti);
+		$jumlah_sabtuminggu = count($sabtuminggu);
+
+		$hitung_cuti = $jumlah_cuti - $total_cuti;
+
+		$query = mysqli_query($db, "UPDATE tbl_pegawai SET jumlah_cuti = '$hitung_cuti',
+	    						alasan_cuti = '$alasan_cuti'
+	                            WHERE idpegawai   = '$idpegawai'"); 
+
+
+		if ($query) {
+	      // jika berhasil tampilkan pesan berhasil update data
+	      header('location: detail-cuti.php?idpegawai='.$idpegawai.'');
+
+	    } else {
+	      echo ("<script LANGUAGE='JavaScript'>window.alert('Data gagal diupdate'); window.location.href='detail-cuti.php?idpegawai=".$idpegawai."'</script>");
+	    } 
+
+
+	}
+}
 ?>

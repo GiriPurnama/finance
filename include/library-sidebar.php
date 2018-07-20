@@ -28,7 +28,7 @@
         <div class="menu">
             <ul class="list">
                 <li class="header">MAIN NAVIGATION</li>
-                <li class="active">
+                <li>
                     <a href="index.php">
                         <i class="material-icons">home</i>
                         <span>Home</span>
@@ -38,6 +38,12 @@
                     <a href="buku-harian.php">
                         <i class="material-icons">inbox</i>
                         <span>Buku Harian Bank</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="cuti.php">
+                        <i class="material-icons">calendar_today</i>
+                        <span>Cuti</span>
                     </a>
                 </li>
             </ul>

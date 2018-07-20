@@ -59,48 +59,67 @@
 	}
 ?>
 
+<?php 
 
-<script language="javascript">
-      function getkey(e)
-      {
-        if (window.event)
-          return window.event.keyCode;
-        else if (e)
-          return e.which;
-        else
-          return null;
+  if($_POST['datacuti']) {
+    $datacuti = $_POST['datacuti'];
+    $load_data = mysqli_query($db, "SELECT * FROM tbl_pegawai WHERE idpegawai='$datacuti'");
+      while ($row = mysqli_fetch_assoc($load_data)) { 
+        $nama_pegawai = $row['nama_pegawai'];
       }
 
-      function goodchars(e, goods, field)
-      {
-        var key, keychar;
-        key = getkey(e);
-        if (key == null) return true;
-       
-        keychar = String.fromCharCode(key);
-        keychar = keychar.toLowerCase();
-        goods = goods.toLowerCase();
-       
-        // check goodkeys
-        if (goods.indexOf(keychar) != -1)
-            return true;
-        // control keys
-        if ( key==null || key==0 || key==8 || key==9 || key==27 )
-          return true;
-          
-        if (key == 13) {
-            var i;
-            for (i = 0; i < field.form.elements.length; i++)
-                if (field == field.form.elements[i])
-                    break;
-            i = (i + 1) % field.form.elements.length;
-            field.form.elements[i].focus();
-            return false;
-            };
-        // else return false
-        return false;
+    $jumlah_cuti= $_POST['jumlah_cuti'];
+    $awal_cuti  = $_POST['tgl_awal_cuti'];
+    $akhir_cuti = $_POST['tgl_akhir_cuti'];
+
+    $awal_cuti = strtotime($awal_cuti);
+    $akhir_cuti = strtotime($akhir_cuti);
+     
+    $haricuti = array();
+    $sabtuminggu = array();
+     
+    for ($i=$awal_cuti; $i <= $akhir_cuti; $i += (60 * 60 * 24)) {
+        if (date('w', $i) !== '0' && date('w', $i) !== '6') {
+            $haricuti[] = $i;
+        } else {
+            $sabtuminggu[] = $i;
+        }
+     
     }
-</script>
+
+    $total_cuti = count($haricuti);
+    $jumlah_sabtuminggu = count($sabtuminggu);
+    $hitung_cuti = $jumlah_cuti - $total_cuti;
+?>
+    
+    <div class="row clearfix">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="info-box bg-pink hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">playlist_add_check</i>
+                </div>
+                <div class="content">
+                    <div class="text">Total Cuti</div>
+                    <div class="number count-to"><?= $total_cuti; ?></div>
+                </div>
+            </div>
+        </div>
+
+         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="info-box bg-cyan hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">domain</i>
+                </div>
+                <div class="content">
+                    <div class="text">Sisa Cuti</div>
+                    <div class="number count-to"><?= $hitung_cuti; ?></div>
+                </div>
+            </div>
+        </div>
+<?php    
+  }
+?>
+
 
 <script type="text/javascript">
 

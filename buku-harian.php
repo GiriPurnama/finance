@@ -68,7 +68,7 @@
             <div class="card pad20">
                 <h3>Data Bank</h3>
                 <div class="table-responsive">
-                    <button type="button" class="btn btn-primary waves-effect m-r-20 mgbt20" data-toggle="modal" data-target="#largeModal">Tambah Data</button>
+                    <button type="button" class="btn btn-primary waves-effect m-r-20 mgbt20" data-toggle="modal" data-target="#largeModal">Tambah Data Bank</button>
                     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                         <thead>
                             <tr>

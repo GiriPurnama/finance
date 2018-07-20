@@ -16,6 +16,9 @@
     <!-- Jquery CountTo Plugin Js -->
     <script src="plugins/jquery-countto/jquery.countTo.js"></script>
 
+      <!-- Input Mask Plugin Js -->
+    <script src="plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
+
     <!-- Morris Plugin Js -->
     <script src="plugins/raphael/raphael.min.js"></script>
     <script src="plugins/morrisjs/morris.js"></script>
@@ -49,8 +52,10 @@
 
     <!-- Custom Js -->
     <script src="js/admin.js"></script>
+    <script src="js/script.js"></script>
     <script src="js/pages/index.js"></script>
     <script src="js/pages/tables/jquery-datatable.js"></script>
+     <script src="js/pages/forms/advanced-form-elements.js"></script>
 
     <!-- Demo Js -->
     <script src="js/demo.js"></script>

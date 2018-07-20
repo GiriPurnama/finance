@@ -8046,6 +8046,15 @@ html.ie11 .bs-searchbox .form-control {
 .mgbt20{
   margin-bottom: 20px;
 }
+.mgt20{
+  margin-top: 20px;
+}
 textarea {
   resize: none;
+}
+span.title{
+  display: block;
+}
+label.sub-title {
+    margin-bottom: 15px;
 }
