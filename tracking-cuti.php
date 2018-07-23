@@ -73,7 +73,7 @@
 
             <div class="card pad20">
              <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                    <table id="historyCuti" class="table table-bordered table-striped table-hover dataTable">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -106,9 +106,9 @@
                             <tr>
                                 <td><?= $no; ?></td>
                                 <td><?= $nama_pegawai; ?></td>
-                                <td><?= $ijin_cuti; ?></td>
+                                <td><?= $ijin_cuti; ?> Hari</td>
                                 <td><?= $alasan_cuti; ?></td>
-                                <td><?= $sisa_cuti; ?></td>
+                                <td><?= $sisa_cuti; ?> Hari</td>
                                 <td><?= $awal_cuti; ?></td>
                                 <td><?= $akhir_cuti; ?></td>
                             </tr>

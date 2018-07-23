@@ -22,6 +22,25 @@ $(function () {
             }]
     });
 
+
+     $('#historyCuti').DataTable({
+        "bLengthChange": false,
+        "bFilter": true,
+          dom: 'Bfrtip',
+             buttons: [{
+              extend: 'pdf',
+              title: 'Cuti Pegawai',
+              filename: 'cuti_pdf'
+            }, {
+                extend: 'print',
+                title: 'Cuti Pegawai',
+              }, {
+              extend: 'excel',
+              title: 'Cuti Pegawai',
+              filename: 'cuti_pegawai'
+            }]
+    });
+
     //Exportable table
     $('.js-exportable').DataTable({
         dom: 'Bfrtip',
