@@ -5,12 +5,12 @@
  * General styles
  */
 
-.card-container.card {
+section.login .card-container.card {
     max-width: 350px;
     padding: 40px 40px;
 }
 
-.btn {
+section.login .btn {
     font-weight: 700;
     height: 36px;
     -moz-user-select: none;
@@ -22,7 +22,7 @@
 /*
  * Card component
  */
-.card {
+section.login .card {
     background-color: #F7F7F7;
     /* just in case there no content*/
     padding: 20px 25px 30px;
@@ -37,7 +37,7 @@
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-.profile-img-card {
+section.login .profile-img-card {
     width: 150px;
     height: 80px;
     margin: 0 auto 20px;
@@ -51,11 +51,11 @@
  * Form styles
  */
 
- #inputEmail, #inputPassword{
+ section.login #inputEmail, #inputPassword{
     margin-bottom: 10px;
  }
 
-.profile-name-card {
+section.login .profile-name-card {
     font-size: 16px;
     font-weight: bold;
     text-align: center;
@@ -63,7 +63,7 @@
     min-height: 1em;
 }
 
-.reauth-email {
+section.login .reauth-email {
     display: block;
     color: #404040;
     line-height: 2;
@@ -78,17 +78,17 @@
     box-sizing: border-box;
 }
 
-.form-signin #inputEmail,
-.form-signin #inputPassword {
+section.login .form-signin #inputEmail,
+section.login .form-signin #inputPassword {
     direction: ltr;
     height: 44px;
     font-size: 16px;
 }
 
-.form-signin input[type=email],
-.form-signin input[type=password],
-.form-signin input[type=text],
-.form-signin button {
+section.login .form-signin input[type=email],
+section.login .form-signin input[type=password],
+section.login .form-signin input[type=text],
+section.login .form-signin button {
     width: 100%;
     display: block;
     margin-bottom: 10px;
@@ -99,14 +99,14 @@
     box-sizing: border-box;
 }
 
-.form-signin .form-control:focus {
+section.login .form-signin .form-control:focus {
     border-color: rgb(104, 145, 162);
     outline: 0;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
 }
 
-.btn.btn-signin {
+section.login .btn.btn-signin {
     /*background-color: #4d90fe; */
     background-color: rgb(104, 145, 162);
     /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
@@ -125,18 +125,18 @@
     cursor: pointer;
 }
 
-.btn.btn-signin:hover,
-.btn.btn-signin:active,
-.btn.btn-signin:focus {
+section.login .btn.btn-signin:hover,
+section.login .btn.btn-signin:active,
+section.login .btn.btn-signin:focus {
     background-color: rgb(30, 138, 128);
 }
 
-.forgot-password {
+section.login .forgot-password {
     color: rgb(104, 145, 162);
 }
 
-.forgot-password:hover,
-.forgot-password:active,
-.forgot-password:focus{
+section.login .forgot-password:hover,
+section.login .forgot-password:active,
+section.login .forgot-password:focus{
     color: rgb(12, 97, 33);
 }
