@@ -6,7 +6,7 @@
 	$server   = "localhost";
 	$username = "root";
 	$password = "";
-	$database = "finance_hera";
+	$database = "dbheraweb";
 
 	// koneksi database
 	$db = mysqli_connect($server, $username, $password, $database);
