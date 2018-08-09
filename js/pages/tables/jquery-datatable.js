@@ -6,20 +6,7 @@ $(function () {
 
     $('#history').DataTable({
         "bLengthChange": false,
-        "bFilter": true,
-          dom: 'Bfrtip',
-             buttons: [{
-              extend: 'pdf',
-              title: 'History Harian Bank',
-              filename: 'history_pdf'
-            }, {
-                extend: 'print',
-                title: 'History Harian Bank',
-              }, {
-              extend: 'excel',
-              title: 'History Harian Bank',
-              filename: 'history_excel'
-            }]
+        "bFilter": true
     });
 
 

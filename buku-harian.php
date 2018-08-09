@@ -67,8 +67,33 @@
 
             <div class="card pad20">
                 <h3>Data Bank</h3>
+
                 <div class="table-responsive">
-                    <button type="button" class="btn btn-primary waves-effect m-r-20 mgbt20" data-toggle="modal" data-target="#largeModal">Tambah Data Bank</button>
+                <form method="POST" action="export-excel.php" style="display:-webkit-box;">
+                    <div class="col-md-4">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" class="form-control" autocomplete="off" name="start_date" id="startDate" placeholder="Tanggal Awal" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" class="form-control" autocomplete="off" name="end_date" id="endDate" placeholder="Tanggal Akhir" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary waves-effect m-r-20" name="export_excel" value="Export Report">
+                        </div>
+                    </div>
+                </form>
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-primary waves-effect m-r-20 mgbt20" data-toggle="modal" data-target="#largeModal">Tambah Data Bank</button>
+                        <!-- <a href="export-report.php" class="btn btn-primary waves-effect m-r-20 mgbt20">Export Excel Mingguan</a> -->
+                    </div>
                     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                         <thead>
                             <tr>
@@ -173,7 +198,12 @@
 
 </html>
 
+<script type="text/javascript" src="plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript">
+    $("#startDate, #endDate").datepicker({ 
+        format: 'yyyy-mm-dd',
+        autoclose: true
+    });
     $('#modalHarianBank').on('show.bs.modal', function (e) {
       var rowharian = $(e.relatedTarget).data('id');
       //menggunakan fungsi ajax untuk pengambilan data
