@@ -47,11 +47,11 @@
                 <a href="javascript:void(0);" class="bars"></a>
                 <a class="navbar-brand" href="index.php">PT Harda Esa Raksa</a>
             </div>
-            <div class="collapse navbar-collapse" id="navbar-collapse">
+           <!--  <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
                 </ul>
-            </div>
+            </div> -->
         </div>
     </nav>
     <!-- #Top Bar -->
@@ -72,38 +72,62 @@
                     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                         <thead>
                             <tr>
+                                <th>No</th>
                                 <th>Nama Pegawai</th>
+                                <th>Tanggal Lahir</th>
                                 <th>Jenis Kelamin</th>
                                 <th>Agama</th>
+                                <th>Nama Perusahaan</th>
+                                <th>Posisi</th>
+                                <th>Kontrak Kerja</th>
+                                <th>Status Cuti</t>
                                 <th>Jumlah Cuti</th>
                                 <th>Alasan Cuti</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?PHP 
-                            $buku_harian = mysqli_query($db, "SELECT * FROM tbl_pegawai order by idpegawai desc");
+                            <?PHP
+                            $no = 1; 
+                            $buku_harian = mysqli_query($db, "SELECT * FROM recruitment WHERE feedback = 'Join' order by id desc");
                             while ($row = mysqli_fetch_array($buku_harian)){
-                                $idpegawai = $row['idpegawai']; 
-                                $nama_pegawai = $row['nama_pegawai'];
+                                $id = $row['id']; 
+                                $nama_lengkap = $row['nama_lengkap'];
+                                
+                                $tanggal_lahir = $row['tanggal_lahir'];
+                                $tanggal_lahir = strtotime($tanggal_lahir);
+                                $tanggal_lahir =  tgl_indo(date('Y-m-d', $tanggal_lahir));
+
                                 $jenis_kelamin = $row['jenis_kelamin'];
                                 $agama = $row['agama'];
+                                $perusahaan = $row['perusahaan'];
+                                $kontrak_kerja = $row['kontrak_kerja'];
+                                $posisi = $row['posisi'];
+                                $posisi_rekomendasi = $row['posisi_rekomendasi'];
+                                $rekomendasi = $posisi_rekomendasi ?: $posisi;
+                                $status_cuti = $row['status_cuti'];
                                 $jumlah_cuti = $row['jumlah_cuti'];
                                 $alasan_cuti = $row['alasan_cuti'];
                        
                             ?>
                             <tr>
-                                <td><?= $nama_pegawai; ?></td>
+                                <td><?= $no; ?></td>    
+                                <td><?= $nama_lengkap; ?></td>
+                                <td><?= $tanggal_lahir; ?></td>
                                 <td><?= $jenis_kelamin; ?></td>
                                 <td><?= $agama; ?></td>
+                                <td><?= $perusahaan; ?></td>
+                                <td><?= $rekomendasi; ?></td>
+                                <td><?= $kontrak_kerja; ?></td>
+                                <td><?= $status_cuti; ?></td>
                                 <td><?= $jumlah_cuti; ?></td>
                                 <td><?= $alasan_cuti; ?></td>
                                 <td>
-                                    <?php echo "<a href='detail-cuti.php?idpegawai=$row[idpegawai]' class='btn bg-cyan btn-circle waves-effect waves-circle waves-float'><i class='material-icons'>settings</i></a>" ?>
-                                    <a href='server.php?idpegawai=<?= $idpegawai; ?>' class="btn bg-red btn-circle waves-effect waves-circle waves-float" onclick="return confirm('Apakah yakin data ini akan dihapus?')"><i class='material-icons'>delete_forever</i></a>
+                                    <?php echo "<a href='detail-cuti.php?id=$row[id]' class='btn bg-cyan btn-circle waves-effect waves-circle waves-float'><i class='material-icons'>settings</i></a>" ?>
+                                    <!-- <a href='server.php?idpegawai=<?= $id; ?>' class="btn bg-red btn-circle waves-effect waves-circle waves-float" onclick="return confirm('Apakah yakin data ini akan dihapus?')"><i class='material-icons'>delete_forever</i></a> -->
                                 </td>
                             </tr>
-                            <?PHP } ?>
+                            <?PHP $no++; } ?>
                         </tbody>
                     </table>
              </div>

@@ -47,11 +47,6 @@
                 <a href="javascript:void(0);" class="bars"></a>
                 <a class="navbar-brand" href="index.php">PT Harda Esa Raksa</a>
             </div>
-            <div class="collapse navbar-collapse" id="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
-                </ul>
-            </div>
         </div>
     </nav>
     <!-- #Top Bar -->
@@ -87,13 +82,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary waves-effect m-r-20" name="export_excel" value="Export Report">
+                            <button type="button" class="btn bg-orange waves-effect m-r-20 " data-toggle="modal" data-target="#largeModal">Tambah Data Bank</button>
                         </div>
                     </div>
                 </form>
-                    <div class="col-md-12">
-                        <button type="button" class="btn btn-primary waves-effect m-r-20 mgbt20" data-toggle="modal" data-target="#largeModal">Tambah Data Bank</button>
-                        <!-- <a href="export-report.php" class="btn btn-primary waves-effect m-r-20 mgbt20">Export Excel Mingguan</a> -->
-                    </div>
                     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                         <thead>
                             <tr>

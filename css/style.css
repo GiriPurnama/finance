@@ -8058,3 +8058,9 @@ span.title{
 label.sub-title {
     margin-bottom: 15px;
 }
+.img-photo{
+  height: 150px;
+  position: absolute;
+  right: 25px;
+  top: -10px;
+}
