@@ -68,27 +68,129 @@
 
 	// Insert
   	if (isset($_POST['save_pegawai'])) {
-		  $nama_pegawai = mysqli_real_escape_string($db, trim($_POST['nama_pegawai']));
-		  $agama = mysqli_real_escape_string($db, trim($_POST['agama']));
-		  $gender = $_POST['jenis_kelamin'];
-		  $tgl_lahir = mysqli_real_escape_string($db, trim($_POST['tgl_lahir']));
-		  $alamat = mysqli_real_escape_string($db, trim($_POST['alamat']));
-		  $email = mysqli_real_escape_string($db, trim($_POST['email']));
-		  $no_telepon = mysqli_real_escape_string($db, trim($_POST['no_telepon']));
-		  $nama_perusahaan = $_POST['nama_perusahaan'];
-		  $tgl_join = mysqli_real_escape_string($db, trim($_POST['tgl_join']));
-		  $jumlah_cuti = mysqli_real_escape_string($db, trim($_POST['jumlah_cuti']));
-		  $alasan_cuti = mysqli_real_escape_string($db, trim($_POST['alasan_cuti']));
-		  $tempat_lahir = mysqli_real_escape_string($db, trim($_POST['tempat_lahir']));
+		$nama_lengkap = mysqli_real_escape_string($db, trim(strtoupper($_POST['nama_lengkap'])));
+		$warga_negara = mysqli_real_escape_string($db, trim(strtoupper($_POST['warga_negara'])));
+		$tempat_lahir = mysqli_real_escape_string($db, trim(strtoupper($_POST['tempat_lahir'])));
+		
+		$tanggal_lahir = strtoupper($_POST['tanggal_lahir']);
+		
+		$agama = strtoupper($_POST['agama']);
+		$jenis_kelamin = strtoupper($_POST['jenis_kelamin']);
+		$no_ktp = strtoupper($_POST['no_ktp']);
+		$no_sim = strtoupper($_POST['no_sim']);
+		$status_sipil = strtoupper($_POST['status_sipil']);
+		$alamat_email = mysqli_real_escape_string($db, trim(strtoupper($_POST['alamat_email'])));
+		$alamat_sekarang = mysqli_real_escape_string($db, trim(strtoupper($_POST['alamat_sekarang'])));
+		$alamat_ktp = mysqli_real_escape_string($db, trim(strtoupper($_POST['alamat_ktp'])));
+		$no_handphone = strtoupper($_POST['no_handphone']);
+		$no_wa = strtoupper($_POST['no_wa']);
+		$telepon = strtoupper($_POST['telepon']);
+		$foto = mysqli_real_escape_string($db, trim($_POST['foto']));
+		$ktp = mysqli_real_escape_string($db, trim($_POST['ktp']));
+		$ijazah = mysqli_real_escape_string($db, trim($_POST['ijazah']));
+		$riwayat_penyakit = mysqli_real_escape_string($db, trim(strtoupper($_POST['riwayat_penyakit'])));
+		$feedback = $_POST['feedback'];
+		$status_pelamar = strtoupper($_POST['status_pelamar']);
+		$posisi_rekomendasi = strtoupper($_POST['posisi_rekomendasi']);
+		$perusahaan = $_POST['perusahaan'];
+		$tanggal_join = $_POST['tanggal_join'];
+		$branch = strtoupper($_POST['branch']);
+		$pendidikan_terakhir = strtoupper($_POST['pendidikan_terakhir']);
 
-		  
-		  $query = mysqli_query($db, "INSERT INTO tbl_pegawai(nama_pegawai, agama, jenis_kelamin, tempat_lahir, tgl_lahir, alamat, email, no_telepon, nama_perusahaan, tgl_join, jumlah_cuti, alasan_cuti) values ('$nama_pegawai','$agama','$gender','$tempat_lahir','$tgl_lahir','$alamat','$email','$no_telepon','$nama_perusahaan','$tgl_join','$jumlah_cuti','$alasan_cuti')");
-		  if ($query) {
-		  		header('location: cuti.php');
-		  } else {
-		  		echo ("<script LANGUAGE='JavaScript'>window.alert('Data Gagal Diinsert'); window.location.href='cuti.php'</script>");
-		  }
-  	}
+		$type = $_FILES['foto']['type'];
+		$fileinfo=PATHINFO($_FILES["foto"]["name"]);
+		$newFilename=$fileinfo['filename'] ."_". time() . "." . $fileinfo['extension'];
+		move_uploaded_file($_FILES["foto"]["tmp_name"],"../upload/" . $newFilename);
+		$location="../upload/" . $newFilename;
+
+		$type1 = $_FILES['ktp']['type'];
+		$fileinfo2=PATHINFO($_FILES["ktp"]["name"]);
+		$newFilename2=$fileinfo2['filename'] ."_". time() . "." . $fileinfo2['extension'];
+		move_uploaded_file($_FILES["ktp"]["tmp_name"],"../upload/" . $newFilename2);
+		$location2="../upload/" . $newFilename2;
+
+		$type2 = $_FILES['ijazah']['type'];
+		$fileinfo3=PATHINFO($_FILES["ijazah"]["name"]);
+		$newFilename3=$fileinfo3['filename'] ."_". time() . "." . $fileinfo3['extension'];
+		move_uploaded_file($_FILES["ijazah"]["tmp_name"],"../upload/" . $newFilename3);
+		$location3="../upload/" . $newFilename3;
+
+		
+		$warga_negara = $warga_negara ?: '-';
+      	$no_sim = $no_sim ?: '-';
+        $telepon = $telepon ?: '-';
+        // $bahasa_asing = ($bahasa_asing == "undefined" ? "-" : $bahasa_asing);
+        $riwayat_penyakit = $riwayat_penyakit ?: '-';
+
+		// $jadwal_interview = strtoupper($_POST['jadwal_interview']);
+
+															
+		$query = mysqli_query($db, "INSERT INTO recruitment(nama_lengkap,
+															posisi,
+															posisi_rekomendasi,
+															warga_negara,
+															tempat_lahir,
+															tanggal_lahir,
+															agama,
+															jenis_kelamin,
+															no_ktp,
+															no_sim,
+															status_sipil,
+															alamat_email,
+															alamat_sekarang,
+															alamat_ktp,
+															no_handphone,
+															no_wa,
+															telepon,
+															riwayat_penyakit,
+															foto,
+															ktp,
+															ijazah,
+															feedback,
+															status_pelamar,
+															perusahaan,
+															tanggal_join,
+															branch,
+															pendidikan_terakhir,
+															post_date)
+															VALUES ('$nama_lengkap',
+																	'$posisi_rekomendasi',
+																	'$posisi_rekomendasi',
+																	'$warga_negara',
+																	'$tempat_lahir',
+																	'$tanggal_lahir',
+																	'$agama',
+																	'$jenis_kelamin',
+																	'$no_ktp',
+																	'$no_sim',
+																	'$status_sipil',
+																	'$alamat_email',
+																	'$alamat_sekarang',
+																	'$alamat_ktp',
+																	'$no_handphone',
+																	'$no_wa',
+																	'$telepon',
+																	'$riwayat_penyakit',
+																	'$location',
+																	'$location2',
+																	'$location3',
+																	'$feedback',
+																	'$status_pelamar',
+																	'$perusahaan',
+																	'$tanggal_join',
+																	'$branch',
+																	'$pendidikan_terakhir',
+																	 NOW())");
+															
+		if ($query) {
+			header('location:cuti.php');
+		} else {
+			// jika gagal tampilkan pesan kesalahan
+			// header('location: index.php?alert=1');
+		echo ("<script LANGUAGE='JavaScript'>window.alert('Maaf data gagal diinput'); window.location.href='cuti.php'</script>");
+			// header('location: ../inforegistrasi.php?alert=1');
+		}	
+	}
 
 
   	// Delete

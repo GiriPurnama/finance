@@ -11,7 +11,7 @@
         $id   = $_GET['id'];
         $query = mysqli_query($db, "SELECT * FROM recruitment WHERE id='$id'") or die('Query Error : '.mysqli_error($db));
         while ($row  = mysqli_fetch_assoc($query)) {
-            $nama_lengkap = $row['nama_lengkap'];
+            $nama_lengkap_pelamar = $row['nama_lengkap'];
             $tanggal_lahir = $row['tanggal_lahir'];
             $tempat_lahir = $row['tempat_lahir'];
             $jenis_kelamin = $row['jenis_kelamin'];
@@ -109,7 +109,7 @@
                     
                     <div class="col-md-6">
                         <span class="title">Nama Karyawan</span>
-                        <label class="sub-title"><?= $nama_lengkap; ?></label>
+                        <label class="sub-title"><?= $nama_lengkap_pelamar; ?></label>
                     </div>
 
                     <div class="col-md-6">
