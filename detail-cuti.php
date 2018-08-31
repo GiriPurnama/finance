@@ -38,6 +38,7 @@
 
             $tanggal_resign = strtotime($row['tanggal_resign']);
             $tanggal_resign = tgl_indo(date('Y-m-d', $tanggal_resign));
+            $tanggal_resign = $tanggal_resign == "01 Januari 1970" ? $tanggal_resign = "-" : $tanggal_resign;
 ?>
 
 
@@ -177,7 +178,7 @@
                         <label class="sub-title"><?= $jumlah_cuti; ?></label>
                     </div>
 
-                    <?php if ($tanggal_resign == "" || $tanggal_resign == "0000-00-00") { ?>
+                    <?php if ($tanggal_resign != "" || $tanggal_resign != "0000-00-00" ) { ?>
 
                         <div class="col-md-6">
                             <span class="title">Tanggal Resign</span>
