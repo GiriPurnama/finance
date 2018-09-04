@@ -55,6 +55,11 @@
     <!-- #Top Bar -->
     <?php 
         include "include/library-sidebar.php";
+        $karyawan_join = mysqli_query($db, "SELECT * FROM recruitment WHERE feedback = 'Join' order by id desc");
+        $jum_join = mysqli_num_rows($karyawan_join);
+
+        $buku_harian = mysqli_query($db, "SELECT * FROM tbl_buku");
+        $jml_buku = mysqli_num_rows($buku_harian);
     ?>
 
     <section class="content">
@@ -72,7 +77,7 @@
                         </div>
                         <div class="content">
                             <div class="text">PEGAWAI</div>
-                            <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20"></div>
+                            <div class="number count-to" data-from="0" data-to="<?= $jum_join; ?>" data-speed="1000" data-fresh-interval="20"></div>
                         </div>
                     </div>
                 </div>
@@ -84,7 +89,7 @@
                         </div>
                         <div class="content">
                             <div class="text">BANK</div>
-                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20"></div>
+                            <div class="number count-to" data-from="0" data-to="<?= $jml_buku; ?>" data-speed="1000" data-fresh-interval="20"></div>
                         </div>
                     </div>
                 </div>
