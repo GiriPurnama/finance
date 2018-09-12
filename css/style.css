@@ -8064,3 +8064,9 @@ label.sub-title {
   right: 25px;
   top: -10px;
 }
+.upload{
+  -moz-opacity:0 ;
+  filter:alpha(opacity: 0);
+  opacity: 0;
+  z-index: 2;
+}

@@ -93,7 +93,7 @@
 		$status_pelamar = strtoupper($_POST['status_pelamar']);
 		$posisi_rekomendasi = strtoupper($_POST['posisi_rekomendasi']);
 		$perusahaan = $_POST['perusahaan'];
-		$tanggal_join = $_POST['tanggal_join'];
+		$tanggal_join = $_POST['tgl_join'];
 		$branch = strtoupper($_POST['branch']);
 		$pendidikan_terakhir = strtoupper($_POST['pendidikan_terakhir']);
 
@@ -263,6 +263,23 @@ if (isset($_POST['update_cuti'])) {
 	}
 }
 //===================== Page Add Cuti ================================================
+
+
+//==================== Update Cuti ===================================================
+if (isset($_POST['save_cuti'])) {
+	$id = $_POST['id'];
+	$status_cuti = $_POST['status_cuti'];
+	$jumlah_cuti = $_POST['jumlah_cuti'];
+
+	$query_update_cuti = mysqli_query($db, "UPDATE recruitment SET status_cuti = '$status_cuti', jumlah_cuti = '$jumlah_cuti' WHERE id = '$id'");
+
+	if ($query_update_cuti) {
+	    header('location: detail-cuti.php?id='.$id.'');
+	} else {
+		echo "Gagal Update";
+	}
+}
+//==================== Update Cuti ===================================================
 
 
 ?>

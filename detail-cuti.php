@@ -158,7 +158,6 @@
                         <label class="sub-title"><?= $alamat_ktp; ?></label>
                     </div>
 
-
                     <div class="col-md-12">
                         <h3>Data Perusahaan </h3>
                     </div>
@@ -189,7 +188,11 @@
 
                 </div>
 
-                <?php if ($jumlah_cuti == 0 || $jumlah_cuti == "") { ?>
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary waves-effect m-r-20 mgbt20" data-toggle="modal" data-target="#cutiModal">Ubah Status Cuti</button>
+                </div>
+
+                <?php if ($status_cuti == "Belum Cuti" || $status_cuti == "") { ?>
                     
                     <div class="text-center"><h3>Karyawan Ini Belum Memiliki Cuti</h3></div>
                 
@@ -226,10 +229,14 @@
                             <label class="form-label">Alasan Cuti</label>
                         </div>
                     </div>
-
-                    <button class="btn btn-primary waves-effect" name="update_cuti" type="submit">SIMPAN</button>
-                    <a href='tracking-cuti.php?id=<?= $id; ?>' class="btn bg-amber waves-effect">Tracking Cuti</a>
-                                  
+                    <?php if ($status_cuti == "Dapat Cuti") { ?>
+                        <button class="btn btn-primary waves-effect" name="update_cuti" type="submit">SIMPAN</button>
+                        <a href='tracking-cuti.php?id=<?= $id; ?>' class="btn bg-amber waves-effect">Tracking Cuti</a>
+                    <?php } else { ?>
+                        <div class="col-md-12 text-center">
+                            <h3>Belum dapat cuti</h3>
+                        </div>
+                    <?php } ?>              
                 </form>
 
                 <?php } ?>

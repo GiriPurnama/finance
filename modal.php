@@ -201,21 +201,21 @@
 
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="file" class="form-control" id="fotoUpload" name="foto" required>
+                                            <input type="file" class="form-control upload" id="fotoUpload" name="foto" required>
                                             <label class="form-label">Upload Foto</label>
                                         </div>
                                     </div>
 
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="file" class="form-control" id="ktpUpload" name="ktp" required>
+                                            <input type="file" class="form-control upload" id="ktpUpload" name="ktp" required>
                                             <label class="form-label">Upload KTP</label>
                                         </div>
                                     </div>
 
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="file" class="form-control" id="ijazahUpload" name="ijazah" required>
+                                            <input type="file" class="form-control upload" id="ijazahUpload" name="ijazah" required>
                                             <label class="form-label">Upload Ijazah</label>
                                         </div>
                                     </div>
@@ -295,6 +295,48 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="cutiModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Update Info Cuti</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                        <form class="mgt20" method="POST" action="server.php">
+                            <input type="hidden" name="id" value="<?= $id; ?>">
+                            <div class="col-md-6 form-group form-float">
+                                <div class="form-line">
+                                    <select name="status_cuti" class="form-control show-tick" required>
+                                        <?php 
+                                        if ($status_cuti == "") { ?>
+                                            <option value="">--Status Cuti--</option>
+                                        <?php } else { ?>
+                                            <option value="<?= $status_cuti ?>"><?= $status_cuti; ?></option>    
+                                        <?php } ?>
+                                        <option value="Dapat Cuti">Dapat Cuti</option>
+                                        <option value="Belum Cuti">Belum Cuti</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group form-float">
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="jumlah_cuti" value="<?= $jumlah_cuti; ?>" required>
+                                    <label class="form-label">Jumlah Cuti</label>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary waves-effect" name="save_cuti" type="submit">SIMPAN</button>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
